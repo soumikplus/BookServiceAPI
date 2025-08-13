@@ -28,22 +28,24 @@ public class BookController {
     }
 
     @GetMapping("/{type}")
-    public ResponseEntity<List<Book>> getBooksByTypes(@PathVariable String type){
+    public ResponseEntity<?> getBooksByTypes(@PathVariable String type){
         List<Book> booksOfType = bookService.getBookByType(type);
         if(!booksOfType.isEmpty()){
             return ResponseEntity.ok(booksOfType);
         }
-        else return ResponseEntity.notFound().build();
+//        else return ResponseEntity.notFound().build();
+          else return ResponseEntity.status(404).body("Book not found for type: " + type);
     }
 
     @GetMapping("/{type}/{id}")
-    public ResponseEntity<Book> getBookByTypeAndId(@PathVariable String type,@PathVariable int id){
+    public ResponseEntity<?> getBookByTypeAndId(@PathVariable String type,@PathVariable int id){
         Book foundBook = bookService.getBookByTypeAndId(type,id);
         if(foundBook!= null){
             return ResponseEntity.ok(foundBook);
         }
         else{
-            return ResponseEntity.notFound().build();
+//            return ResponseEntity.notFound().build();
+              return ResponseEntity.status(404).body("Book not found for type: " + type + "and Id: "+ id);
         }
     }
     @PostMapping
