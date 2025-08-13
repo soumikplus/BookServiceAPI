@@ -18,4 +18,25 @@ public class BookServiceImpl implements BookService{
         books.add(book);
         return book;
     }
+
+    @Override
+    public Book getBookByTypeAndId(String type, int id) {
+        for(Book b : books){
+            if(b.getType().equalsIgnoreCase(type) && b.getId()==id){
+                return b;
+            }
+        }
+        return null; // means not found
+    }
+
+    @Override
+    public List<Book> getBookByType(String type) {
+        List<Book>result = new ArrayList<>();
+        for(Book b : books){
+            if(b.getType().equalsIgnoreCase(type)){
+                result.add(b);
+            }
+        }
+        return result;
+    }
 }
